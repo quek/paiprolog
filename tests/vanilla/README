@@ -1,0 +1,56 @@
+% This is a revised version of the test
+% site for conformance to ISO standard
+%  ISO/IEC 13211-1
+%
+%  Copyright  J.P.E Hodgson                    %
+%             Saint Joseph's University        %
+%             Philadelphia.   PA 19131         %
+%                                              %
+%   Thanks to Ken Bowen of ALS for support     %
+%   and to Joe Pedano and John Hallat of       %
+%   Saint Joseph's for their work on this      %
+%   project.               
+
+%   Date 15 June 1999                          %
+%                                             %
+
+
+The driver for the code is in
+
+vanilla.pl
+
+This (of ocurse probably won't work if your prolog
+doesn't conform to the standard.
+In fact it doesn't work for four of the five cases that I
+have tried.
+
+The following files do work.
+
+For ALS prolog  als_v.pro,  for these you use the als directory
+because ALS doesn't (as yet) support current_predicate.
+
+For gnuprolog  gnuprolog_v.pl
+For sicstus  sicstus_v.pl
+
+
+After loading the driver files you then call the goal
+
+run_tests.
+
+The results appear at the console.
+
+
+A word on errors raised by is/2. The standard is somewhat ambiguous on this. 
+Section 7.9.2 of the standard says that evaluation has only one type_error namely evaluable. 
+But all the error listings in 9.4.x.3 use integer in their type errors.
+Generally I have preferred the former in this version of the suite, 
+besides this is consistent with what is done in the rest of clause 9.
+However if the argument is evaluable, but not of the required type
+eg a float when an integer is expected then one should throw 
+type_error(integer, 7.5) so this is what the suite expects.
+
+
+
+
+
+

@@ -1,0 +1,49 @@
+Starting tests for Section 8.2
+
+Testing Prolog unify.
+
+Tests of unification complete, testing unify_with_occurs_check.
+
+Tests of unify_with_occurs_check completed, testing not Prolog unifiable.
+
+
+Testing of not Prolog unifiable completed.
+
+All testing completed for Section 8.2.
+
+Starting tests for Section 8.2
+
+Testing Prolog unify.
+
+Tests of unification complete, testing unify_with_occurs_check.
+
+Tests of unify_with_occurs_check completed, testing not Prolog unifiable.
+
+
+Testing of not Prolog unifiable completed.
+
+All testing completed for Section 8.2.
+
+Starting tests for Section 8.4
+
+Beginning tests of term comparisions.
+
+Tests of term comparisions are completed.
+
+All testing completed for Section 8.4.
+
+Starting tests for Section 8.5
+
+Test starting for functor.
+
+
+Test of functor finished, starting test of arg
+
+Test of arg finished, starting test of univ
+
+Test of univ finished, starting test of copy_term
+
+Testing copy_term more extensively.
+
+Tests of copyterm completed, testing errors secction 8.5
+

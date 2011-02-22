@@ -1,0 +1,45 @@
+* tests for standardized (draft: ISO/IEC JTC1 SC22 WG17 N110,
+  available from CMU AI repository) functors:
+  ** examples from the standard;
+  ** vanilla test suite;
+  ** inria test suite;
+  ** nasty corner cases like PFD might come up with.  (Mostly
+     involving cuts, probably);
+  ** maybe random tests.
+
+* implement missing or incomplete standardized functors from standard.
+  Known deficiencies:
+  ** anything to do with reading or writing external syntax;
+  ** CL/Prolog stream mismatches;
+  ** most exceptional cases;
+  ** bagof/setof iterated term goal and witness stuff;
+  ** probably hosts of bugs.
+
+* documentation:
+  ** lispy syntax;
+  ** extensions;
+  ** internals;
+  ** other stuff.
+
+* maintenance programming:
+  ** deletion of duplicate functions;
+  ** use of standard functions where possible;
+  ** case issues;
+  ** the idiom of 2005 (rather than that of 1992).
+
+* performance characteristics:
+  ** verify or fix tail recusrion elimination;
+  ** stack voracity in the compiler itself;
+  ** facts can probably be treated better;
+  ** functors with goal arguments should compile those arguments OAOO.
+
+* possible blue sky development:
+  ** a library to make this a bit like other prologs;
+  ** threads (each with its own local database as well as the global
+     one);
+  ** climacs integration;
+  ** tracer, debugger, stepper;
+  ** documentation integration -- maybe something like 
+     (DOCUMENTATION '|;| 'PAIPROLOG:FUNCTOR), but how to deal with
+     arity?  Do we have to do 
+     (DOCUMENTATION '|;|/2 'PAIPROLOG:FUNCTOR)?

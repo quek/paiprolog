@@ -1,0 +1,8 @@
+
+note that we can't easily test things like
+
+atom_codes('abc\x20lmn', X)
+because the reading of the file throws a syntax error.
+Think about how you might get round this.
+
+

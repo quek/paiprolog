@@ -1,0 +1,127 @@
+\input texinfo   @c -*-texinfo-*-
+@c %**start of header
+@setfilename paiprolog.info
+@settitle PAIProlog Manual
+@c %**end of header
+
+@include variables.texinfo
+@set EDITION 0.1
+@settitle SBCL @value{VERSION} User Manual 
+
+@c for install-info
+@dircategory Software development
+@direntry
+* paiprolog: (paiprolog).           Prolog in Lisp
+@end direntry
+
+@copying
+@quotation
+This manual was written from scratch for the PAIProlog system; it is in
+the public domain, and provided with absolutely no warranty.
+@end quotation
+@end copying
+
+@titlepage
+
+@title PAIProlog
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+
+@end titlepage
+
+@contents
+
+@ifnottex
+
+@node Top
+@comment  node-name,  next,  previous,  up
+@top paiprolog
+
+@insertcopying
+
+@menu
+* Introduction::                
+* Concept Index::               
+* Function Index::              
+* Variable Index::              
+* Type Index::                  
+* References::
+* Colophon::                    
+@end menu
+
+@end ifnottex
+
+@node Introduction
+@comment  node-name,  next,  previous,  up
+@chapter Introduction
+
+PAIP code:
+- compile to lisp forms
+- success continuations
+
+(Internals notes)
+
+Lisp syntax
+- foo/0 treatment (bracketed or not)
+- lisp lists vs prolog lists
+- if/3: @code{(if a b c)} = @code{';'('->'(a,b), c)}
+- implicit and/2
+
+- @code{?-} and @code{<-} operators
+
+ISO syntax implementation strategies: 
+- Climacs
+- cl-yacc
+
+Internals:
+- special forms: !, if, or, and
+- constant stack space (do we actually get this by default?  Check!)
+
+@node Concept Index
+@comment  node-name,  next,  previous,  up
+@appendix Concept Index
+
+@printindex cp
+
+@node Function Index
+@comment  node-name,  next,  previous,  up
+@appendix Function Index
+     
+@printindex fn
+
+@node Variable Index
+@comment  node-name,  next,  previous,  up
+@appendix Variable Index
+     
+@printindex vr
+
+@node Type Index
+@comment  node-name,  next,  previous,  up
+@appendix Type Index
+
+@printindex tp
+
+@node References
+@comment  node-name,  next,  previous,  up
+@unnumbered References
+
+@c why no BibTeX? :-(
+
+PAIP
+
+ISO document (draft?)
+
+@node Colophon
+@comment  node-name,  next,  previous,  up
+@unnumbered Colophon
+
+This manual is maintained in Texinfo, and automatically translated
+into other forms (e.g. HTML or pdf). If you're @emph{reading} this
+manual in one of these non-Texinfo translated forms, that's fine, but
+if you want to @emph{modify} this manual, you are strongly advised to
+seek out a Texinfo version and modify that instead of modifying a
+translated version. 
+
+
+@bye

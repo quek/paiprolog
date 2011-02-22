@@ -1,0 +1,193 @@
+------------------------------------------------------------------------
+r30 | crhodes | 2005-05-18 10:16:44 +0100 (Wed, 18 May 2005) | 2 lines
+
+Add basic metadocumentation
+
+------------------------------------------------------------------------
+r29 | crhodes | 2005-05-15 18:38:03 +0100 (Sun, 15 May 2005) | 7 lines
+
+implement findall/3 (and note deficiency of bagof/3 and setof/3).
+
+Add documentation strings.
+
+comment out definitions of if/[23], and/2 and or/2; they should never be
+called.
+
+------------------------------------------------------------------------
+r28 | crhodes | 2005-05-15 16:12:57 +0100 (Sun, 15 May 2005) | 2 lines
+
+Add the licence agreement from Norvig's site.
+
+------------------------------------------------------------------------
+r27 | crhodes | 2005-05-15 16:12:23 +0100 (Sun, 15 May 2005) | 2 lines
+
+more braindump
+
+------------------------------------------------------------------------
+r26 | crhodes | 2005-05-15 16:11:46 +0100 (Sun, 15 May 2005) | 4 lines
+
+Maybe make it ISO semantics.
+
+Ugly ugly CALL/1-TMP-PREDICATE thing.
+
+------------------------------------------------------------------------
+r25 | crhodes | 2005-05-15 15:23:59 +0100 (Sun, 15 May 2005) | 2 lines
+
+Add skeleton documentation
+
+------------------------------------------------------------------------
+r24 | crhodes | 2005-05-15 14:58:44 +0100 (Sun, 15 May 2005) | 2 lines
+
+Add vanilla and inria test suites
+
+------------------------------------------------------------------------
+r23 | crhodes | 2005-05-13 17:57:02 +0100 (Fri, 13 May 2005) | 3 lines
+
+Do a little more unbinding, and comment on how to solve the remaining 
+evaluation problems.
+
+------------------------------------------------------------------------
+r22 | crhodes | 2005-05-13 17:27:03 +0100 (Fri, 13 May 2005) | 6 lines
+
+First cut at making ISO-conforming and/2, or/2 and if/2 (including 
+if-then-else).  I think now it probably mostly works except possibly for 
+goals with cuts in them.
+
+NEED TESTS!
+
+------------------------------------------------------------------------
+r21 | crhodes | 2005-05-13 11:50:08 +0100 (Fri, 13 May 2005) | 4 lines
+
+Make this less ridiculously painful to debug, by at least making loading 
+the definitions of and/2, or/2 and if/[23] squelch previous definitions
+rather than adding to them.
+
+------------------------------------------------------------------------
+r20 | crhodes | 2005-05-13 11:23:58 +0100 (Fri, 13 May 2005) | 11 lines
+
+Get to the point where I can run some of the difficult cases involving
+!/0.  Mostly this involves making sure that we /can/ treat atoms as
+nullary Prolog operators; we're not enforcing it yet, but probably will
+eventually (so that we can distinguish "foo()" from "foo", though mind
+you the first is a syntax error.  Hmm.)
+
+Now things like
+  (?- (member ?q (1 2 3)) (if (member ?r (4 5 6)) !))
+have completely the wrong behaviour, but don't crash.
+
+
+------------------------------------------------------------------------
+r19 | mas01cr | 2005-03-23 11:52:05 +0000 (Wed, 23 Mar 2005) | 2 lines
+
+implement catch/3 and throw/1
+
+------------------------------------------------------------------------
+r18 | mas01cr | 2005-03-21 12:41:53 +0000 (Mon, 21 Mar 2005) | 3 lines
+
+implement character i/o and character code i/o, subject to the caveat that
+the former works only on text streams and the latter on binary streams
+
+------------------------------------------------------------------------
+r17 | mas01cr | 2005-03-21 10:17:18 +0000 (Mon, 21 Mar 2005) | 3 lines
+
+add some more bits of 8.11, and test that it compiles and basically
+works this time
+
+------------------------------------------------------------------------
+r16 | mas01cr | 2005-03-21 10:08:09 +0000 (Mon, 21 Mar 2005) | 2 lines
+
+(untested) implementation of 8.11 stream selection and control
+
+------------------------------------------------------------------------
+r15 | mas01cr | 2005-03-20 10:54:48 +0000 (Sun, 20 Mar 2005) | 4 lines
+
+implement, up to a point, number-chars and number-codes.
+
+Again, the issue over lists/functors raises its ugly head.
+
+------------------------------------------------------------------------
+r14 | mas01cr | 2005-03-19 23:29:40 +0000 (Sat, 19 Mar 2005) | 2 lines
+
+more built-in predicates.  rewrite some using deffoo macros
+
+------------------------------------------------------------------------
+r13 | mas01cr | 2005-03-18 17:47:47 +0000 (Fri, 18 Mar 2005) | 3 lines
+
+Implement term comparison, arithmetic comparison and clause
+assertion and retraction.  Fix clause/2 to actually work.
+
+------------------------------------------------------------------------
+r12 | mas01cr | 2005-03-18 17:46:31 +0000 (Fri, 18 Mar 2005) | 3 lines
+
+Support for adding clauses at the beginning, and for retracting
+individual clauses
+
+------------------------------------------------------------------------
+r11 | mas01cr | 2005-03-18 17:46:03 +0000 (Fri, 18 Mar 2005) | 2 lines
+
+Everything depends on "package"
+
+------------------------------------------------------------------------
+r10 | mas01cr | 2005-03-17 22:19:22 +0000 (Thu, 17 Mar 2005) | 6 lines
+
+Rename not-unifiable to \=
+
+some s/if/when/
+
+implement CLAUSE/2
+
+------------------------------------------------------------------------
+r9 | mas01cr | 2005-03-17 22:18:44 +0000 (Thu, 17 Mar 2005) | 3 lines
+
+make the behaviour of the toplevel a bit more like swi-prolog
+(if there are no vars, don't prompt the user for more solutions)
+
+------------------------------------------------------------------------
+r8 | mas01cr | 2005-03-17 21:32:09 +0000 (Thu, 17 Mar 2005) | 2 lines
+
+use :compile-toplevel :load-toplevel :execute rather than compile load eval
+
+------------------------------------------------------------------------
+r7 | mas01cr | 2005-03-17 21:28:39 +0000 (Thu, 17 Mar 2005) | 2 lines
+
+start rearranging the primitives.  Implement some more of ISO
+
+------------------------------------------------------------------------
+r6 | mas01cr | 2005-03-17 11:34:45 +0000 (Thu, 17 Mar 2005) | 2 lines
+
+Fix definition of IF
+
+------------------------------------------------------------------------
+r5 | mas01cr | 2005-03-17 11:34:34 +0000 (Thu, 17 Mar 2005) | 2 lines
+
+Insert WITH-COMPILATION-UNIT around calls to the compiler
+
+------------------------------------------------------------------------
+r4 | mas01cr | 2005-03-15 16:47:35 +0000 (Tue, 15 Mar 2005) | 8 lines
+
+Slight modernizations:
+* this gets its own package, PAIPROLOG, not CL-USER
+* comment out various bits and pieces which are patently not necessary
+* add a force-output in show-prolog-vars (and the compiler definition)
+* REQUIRES is now a no-op, because
+* ... the asd file reflects dependencies
+
+
+------------------------------------------------------------------------
+r3 | mas01cr | 2005-03-15 15:34:46 +0000 (Tue, 15 Mar 2005) | 4 lines
+
+Completely minimal asd file.  Builds a mostly-working prolog interpreter and
+compiler, if enough restarts are chosen.
+
+
+------------------------------------------------------------------------
+r2 | mas01cr | 2005-03-15 15:34:13 +0000 (Tue, 15 Mar 2005) | 2 lines
+
+Ignore *.fasl
+
+------------------------------------------------------------------------
+r1 | mas01cr | 2005-03-15 13:44:44 +0000 (Tue, 15 Mar 2005) | 2 lines
+
+imported (complete) sources from PAIP
+
+------------------------------------------------------------------------
