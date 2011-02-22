@@ -4,6 +4,8 @@
 
 ;;;; File unifgram.lisp: The DCG parser from Chapter 20.
 
+(in-package "PAIPROLOG")
+
 (requires "prologcp")
 
 (defmacro rule (head &optional (arrow ':-) &body body)
