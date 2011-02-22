@@ -1,21 +1,4 @@
-This is PAIProlog, an adaptation of the Prolog compiler from Peter
-Norvig's _Paradigms of Artificial Intelligence Programming_, and
-distributed under the terms of Peter Norvig's licence, included as
-license.html and viewable (as of May 2005) at
-<http://www.norvig.com/license.html>.
+PAIPROLOG
+forked from http://www.cl-user.net/asp/TWKe/sdataQ0rEOGCGW7roDQdmZG8X8yBX8yBXnMq=/sdataQu3F$sSHnB==
 
-PAIProlog is expected to work with the latest released version of the
-SBCL implementation of Common Lisp (information available at
-<http://www.sbcl.org/>).  As of May 2005, it contains little
-unportable code, but it will not be tested with other lisps, nor will
-any special effort be made to avoid unportable constructs.
 
-Contributions to PAIProlog are welcome: the TODO file gives an
-indication of development direction.  Potential contributors should
-note that their contributions are much more likely to be merged if
-they address items near the top of the TODO file; while no attempt is
-made to discourage any user to develop the system to meet his or her
-need, nor even to publish those developments, merging into the
-distribution will be done at the discretion of the maintainers.
-
-  Christophe Rhodes <csr21@cam.ac.uk>  2005-05-18T10:15+0100
