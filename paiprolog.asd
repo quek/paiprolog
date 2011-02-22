@@ -6,4 +6,5 @@
 		 (:file "prolog" :depends-on ("package" "unify"))
 		 (:file "prologc" :depends-on ("package" "prolog"))
 		 (:file "prologcp" 
-			:depends-on ("package" "auxfns" "prologc"))))
+			:depends-on ("package" "auxfns" "prologc"))
+                 (:file "prolog-ext" :depends-on ("prologc"))))
