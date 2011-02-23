@@ -711,6 +711,12 @@
            (unify! ?result (apply (first exp) (rest exp))))
       (funcall cont)))
 
+(defun lisp/1 (exp cont)
+  "Apply (first exp) to (rest exp) for side effect."
+  (if (and (consp (deref exp))
+           (apply (first exp) (rest exp)))
+      (funcall cont)))
+
 #|
 (<- (member ?item (?item . ?rest)))
 (<- (member ?item (?x . ?rest)) (member ?item ?rest))

@@ -51,7 +51,7 @@ which is accessed from lisp functor.
 (let ((x 100) y)
   (prolog (lisp ?a x)
           (= ?a ?b)
-          (lisp ? (setf y (+ ?b ?b x 1))))
+          (lisp (setf y (+ ?b ?b x 1))))
   y)
 ;;=> 301
 "
