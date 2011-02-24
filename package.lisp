@@ -4,4 +4,4 @@
   (:export "?-"
            "<-"
            "<--"
-           "prolog"))
+           "PROLOG"))
