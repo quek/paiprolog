@@ -28,7 +28,7 @@ and add a clause to the data base."
 (defun insert-deref (exp)
   (if (atom exp)
       (if (variable-p exp)
-          `(deref ,exp)
+          `(deref-exp ,exp)
           exp)
       (cons (insert-deref (car exp))
             (insert-deref (cdr exp)))))
