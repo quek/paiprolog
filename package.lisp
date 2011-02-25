@@ -6,4 +6,5 @@
            #:<--
            #:lisp
            #:prolog
-           #:prolog-collect))
+           #:prolog-collect
+           #:prolog-first))

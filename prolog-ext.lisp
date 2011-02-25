@@ -81,6 +81,9 @@ which is accessed from lisp functor.
        (run-prolog 'top-level-query/0 #'ignore))))
 
 (defmacro prolog-collect ((&rest vars) &body body)
+  "collect all bindings of vars"
+  (when (null vars)
+    (error "must specify vars."))
   (let ((result (gensym "result")))
     `(let (,result)
        (prolog
@@ -91,4 +94,14 @@ which is accessed from lisp functor.
                                `(list ,@vars))
                           ,result)))))
        ,result)))
+
+(defmacro prolog-first ((&rest vars) &body body)
+  "return first bindding of vars"
+  (when (null vars)
+    (error "must specify vars."))
+  `(prolog
+     ,@body
+     (lisp (return-from prolog ,(if (length=1 vars)
+                                    (car vars)
+                                    `(values ,@vars))))))
 
