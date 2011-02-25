@@ -705,17 +705,82 @@
 
 ;;; 8.17 implementation-defined hooks
 
-(defun lisp/2 (?result exp cont)
-  "Apply (first exp) to (rest exp), and return the result."
-  (if (and (consp (deref exp))
-           (unify! ?result (apply (first exp) (rest exp))))
-      (funcall cont)))
+;;(defun lisp/2 (?result exp cont)
+;;  "Apply (first exp) to (rest exp), and return the result."
+;;  (if (and (consp (deref exp))
+;;           (unify! ?result (apply (first exp) (rest exp))))
+;;      (funcall cont)))
 
-(defun lisp/1 (exp cont)
-  "Apply (first exp) to (rest exp) for side effect."
-  (if (and (consp (deref exp))
-           (apply (first exp) (rest exp)))
-      (funcall cont)))
+(def-prolog-compiler-macro lisp (goal body cont bindings)
+  "lisp/1 and lisp/2"
+  (let ((args (args goal)))
+    (case (length args)
+      (1                                ; lisp/1
+         (let* ((lisp-exp (first args))
+                (lisp-args (variables-in lisp-exp)))
+           `(progn
+              (apply #'(lambda ,lisp-args ,(insert-deref lisp-exp))
+                     ,(compile-arg lisp-args bindings))
+              ,(compile-body body cont bindings))))
+      (2                                ; lisp/2
+         (let* ((var (first args))
+                (lisp-exp (second args))
+                (lisp-args (variables-in lisp-exp)))
+           (compile-if
+            `(unify! ,(compile-arg var bindings)
+                     (apply #'(lambda ,lisp-args ,(insert-deref lisp-exp))
+                            ,(compile-arg lisp-args bindings)))
+            (compile-body body cont (bind-new-variables bindings goal)))))
+      (t :pass))))
+
+#+(or)
+(prolog-compile 'foo '(((foo ?x ?y) (lisp ?x (concatenate 'string ?y)))))
+;;-> 
+;;   (DEFUN FOO/2 (#:?ARG1 #:?ARG2 CONT)
+;;     (LET ((?Y (?)))
+;;       (IF (UNIFY! #:?ARG1
+;;                   (APPLY #'(LAMBDA (?Y) (CONCATENATE 'STRING (DEREF-EXP ?Y)))
+;;                          (LIST #:?ARG2)))
+;;           (FUNCALL CONT)))) 
+;;=> NIL
+#+(or)
+(progn
+  (<-- (foo ?x ?y) (lisp ?x (concatenate 'string ?y ?y)))
+  (?- (foo ?x (#\a))))
+;;-> 
+;;   (DEFUN TOP-LEVEL-QUERY/0 (CONT)
+;;     (LET ((?X (?)))
+;;       (FOO/2 ?X '(#\a)
+;;              #'(LAMBDA () (SHOW-PROLOG-VARS/2 '("?X") (LIST ?X) CONT))))) 
+;;   (DEFUN FOO/2 (#:?ARG1 #:?ARG2 CONT)
+;;     (LET ((?Y (?)))
+;;       (IF (UNIFY! #:?ARG1
+;;                   (APPLY
+;;                    #'(LAMBDA (?Y)
+;;                        (CONCATENATE 'STRING (DEREF-EXP ?Y) (DEREF-EXP ?Y)))
+;;                    (LIST #:?ARG2)))
+;;           (FUNCALL CONT)))) 
+;;   ?X = aa
+;;   No.
+;;=> 
+
+#+(or)
+(progn
+  (<- (bar ?x) (lisp (print ?x)))
+  (?- (bar bar)))
+;;-> 
+;;   (DEFUN TOP-LEVEL-QUERY/0 (CONT)
+;;     (BAR/1 'BAR #'(LAMBDA () (SHOW-PROLOG-VARS/2 'NIL 'NIL CONT)))) 
+;;   (DEFUN BAR/1 (#:?ARG1 CONT)
+;;     (LET ((?X (?)))
+;;       (PROGN
+;;        (APPLY #'(LAMBDA (?X) (PRINT (DEREF-EXP ?X))) (LIST #:?ARG1))
+;;        (FUNCALL CONT)))) 
+;;   BAR 
+;;   Yes
+;;   No.
+;;=> 
+
 
 #|
 (<- (member ?item (?item . ?rest)))

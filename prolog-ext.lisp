@@ -40,9 +40,27 @@ and add a clause to the data base."
                   ``(,@',(butlast goal)
                          (apply ,(lambda (,@vars)
                                    ,@(insert-deref (last goal)))
-                                 ,',vars)))
+                                (list ,@',vars))))
                 `',goal))
           goals))
+
+#+(or)
+(let ((x 100) y)
+  (prolog-compile 'TOP-LEVEL-QUERY
+                  `(((TOP-LEVEL-QUERY)
+                     (LISP ?A (APPLY ,(LAMBDA () X) (LIST)))
+                     (= ?A ?B)
+                     (LISP (APPLY ,(LAMBDA (?B) (SETF Y (+ (DEREF-EXP ?B) (DEREF-EXP ?B) X 1)))
+                                  (LIST ?B)))))))
+;;-> 
+;;   (DEFUN TOP-LEVEL-QUERY/0 (CONT)
+;;     (LET ((?B (?)) (?A (?)))
+;;       (IF (UNIFY! ?A (APPLY #'(LAMBDA () (APPLY # (LIST))) 'NIL))
+;;           (PROGN
+;;            (APPLY #'(LAMBDA (?B) (APPLY # (LIST (DEREF-EXP ?B)))) (LIST ?A))
+;;            (FUNCALL CONT))))) 
+;;=> NIL
+
 
 (defmacro prolog (&rest goals)
   "Run Prolog in the surrounding Lisp environment
@@ -61,3 +79,16 @@ which is accessed from lisp functor.
        (add-clause `((top-level-query)
                      ,,@(prolog-translate-goals goals)))
        (run-prolog 'top-level-query/0 #'ignore))))
+
+(defmacro prolog-collect ((&rest vars) &body body)
+  (let ((result (gensym "result")))
+    `(let (,result)
+       (prolog
+        ,@body
+        ,@(when vars
+            `((lisp (push ,(if (length=1 vars)
+                               (car vars)
+                               `(list ,@vars))
+                          ,result)))))
+       ,result)))
+

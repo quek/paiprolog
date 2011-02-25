@@ -1,7 +1,9 @@
-(defpackage "PAIPROLOG"
-  (:use "CL")
-  (:shadow "IGNORE" "SYMBOL" "DEBUG")
-  (:export "?-"
-           "<-"
-           "<--"
-           "PROLOG"))
+(defpackage #:paiprolog
+  (:use #:cl )
+  (:shadow #:ignore #:symbol #:debug)
+  (:export #:?-
+           #:<-
+           #:<--
+           #:lisp
+           #:prolog
+           #:prolog-collect))
