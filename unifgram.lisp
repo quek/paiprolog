@@ -4,7 +4,7 @@
 
 ;;;; File unifgram.lisp: The DCG parser from Chapter 20.
 
-(in-package "PAIPROLOG")
+(in-package #:unifgram)
 
 (requires "prologcp")
 
@@ -134,7 +134,7 @@
   (prolog-compile-symbols)
   (if (null category)
       (maphash #'(lambda (cat val)
-                   (declare (ignore val))
+                   (declare (cl:ignore val))
                    (format t "~2&Examples of ~a:~&" cat)
                    (run-examples cat))
                *examples*)
