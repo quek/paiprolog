@@ -12,7 +12,6 @@
            #:and
            #:or
            #:if
-           #:if
            #:catch
            #:throw
            #:=
