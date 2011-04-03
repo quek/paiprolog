@@ -1,3 +1,5 @@
+(cl:in-package :cl)
+
 (macrolet ((m ()
              `(defpackage #:unifgram
                 (:use #:cl #:paiprolog)
@@ -7,6 +9,7 @@
                          collect sym))
                 (:export #:rule
                          #:-->
+                         #:--->
                          #:==>
                          #:add*))))
   (m))

@@ -16,16 +16,24 @@
 (setf (get ':- 'rule-function)
       #'(lambda (head body) `(<- ,head .,body)))
 
+(setf (get ':-- 'rule-function)
+      #'(lambda (head body) `(<-- ,head .,body)))
+
 (defun dcg-normal-goal-p (x) (or (starts-with x :test) (eq x '!)))
 
 (defun dcg-word-list-p (x) (starts-with x ':word))
 
 (setf (get '--> 'rule-function) 'make-dcg)
 
-(defun make-dcg (head body)
+(setf (get '---> 'rule-function) 'make-dcg!)
+
+(defun make-dcg (head body &optional (op '<-))
   (let ((n (count-if (complement #'dcg-normal-goal-p) body)))
-    `(<- (,@head ?s0 ,(symbol '?s n))
-         .,(make-dcg-body body 0))))
+    `(,op (,@head paiprolog::?s0 ,(symbol '?s n))
+          .,(make-dcg-body body 0))))
+
+(defun make-dcg! (head body)
+  (make-dcg head body '<--))
 
 (defun make-dcg-body (body n)
   "Make the body of a Definite Clause Grammar (DCG) clause.
