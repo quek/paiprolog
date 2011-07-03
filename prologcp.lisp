@@ -696,6 +696,19 @@
                     (deref ?characters)))
     (funcall cont)))
 
+(defun string-atom/2 (?string ?atom cont)
+  "for Common Lisp"
+  (when (if (unbound-var-p (deref ?string))
+            (unify! ?string (string (deref ?atom)))
+            (unify! (intern ?string) (deref ?atom)))
+    (funcall cont)))
+
+(defun string-list/2 (?string ?list cont)
+  (when (if (unbound-var-p (deref ?string))
+            (unify! ?string (coerce (deref ?list) 'string))
+            (unify! (coerce ?string 'list) (deref ?list)))
+    (funcall cont)))
+
 (defun char-code/2 (?char ?code cont)
   "8.16.6"
   (if (unbound-var-p (deref ?char))
