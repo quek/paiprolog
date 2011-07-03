@@ -674,7 +674,27 @@
       (when (unify! (explode ?atom) (deref ?list))
         (funcall cont))))
 
-;; FIXME: atom-codes/2?
+(defun atom-codes/2 (?atom ?codes cont)
+  "8.16.5"
+  (when (if (unbound-var-p (deref ?atom))
+            (unify! ?atom
+                    (intern (coerce (loop for i in (deref ?codes)
+                                          collect (code-char i))
+                                    'string)))
+            (unify! (loop for i across (string ?atom)
+                          collect (char-code i))
+                    (deref ?codes)))
+    (funcall cont)))
+
+(defun atom-characters/2 (?atom ?characters cont)
+  "for Common Lisp"
+  (when (if (unbound-var-p (deref ?atom))
+            (unify! ?atom
+                    (intern (coerce (deref ?characters) 'string)))
+            (unify! (loop for i across (string ?atom)
+                          collect i)
+                    (deref ?characters)))
+    (funcall cont)))
 
 (defun char-code/2 (?char ?code cont)
   "8.16.6"
