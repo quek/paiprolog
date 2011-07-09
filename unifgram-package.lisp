@@ -1,15 +1,10 @@
 (cl:in-package :cl)
 
-(macrolet ((m ()
-             `(defpackage #:unifgram
-                (:use #:cl #:paiprolog)
-                (:shadowing-import-from
-                 #:paiprolog
-                 ,@(loop for sym being the present-symbols in :paiprolog
-                         collect sym))
-                (:export #:rule
-                         #:-->
-                         #:--->
-                         #:==>
-                         #:add*))))
-  (m))
+(defpackage :unifgram
+  (:use :cl :paiprolog :paiprolog.auxfns)
+  (:shadowing-import-from :paiprolog.auxfns #:symbol #:debug)
+  (:export #:rule
+           #:-->
+           #:--->
+           #:==>
+           #:add*))

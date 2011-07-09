@@ -6,8 +6,7 @@
 
 (in-package #:unifgram)
 
-(requires "prologcp")
-
+ 
 (defmacro rule (head &optional (arrow ':-) &body body)
   "Expand one of several types of logic rules into pure Prolog."
   ;; This is data-driven, dispatching on the arrow
@@ -18,6 +17,10 @@
 
 (setf (get ':-- 'rule-function)
       #'(lambda (head body) `(<-- ,head .,body)))
+
+(defun starts-with (list x)
+  "Is this a list whose first element is x?"
+  (and (consp list) (eql (first list) x)))
 
 (defun dcg-normal-goal-p (x) (or (starts-with x :test) (eq x '!)))
 
@@ -65,7 +68,7 @@
   "Build an augmented DCG rule that handles :sem, :ex,
   and automatic conjunctiontive constituents."
   (if (eq (last1 head) :sem)
-      ;; Handle :sem 
+      ;; Handle :sem
       (let* ((?sem (gensym "?SEM")))
         (make-augmented-dcg
           `(,@(butlast head) ,?sem)
@@ -74,7 +77,7 @@
       ;; Separate out examples from body
       (multiple-value-bind (exs new-body)
           (partition-if #'(lambda (x) (starts-with x :ex)) body)
-        ;; Handle conjunctions 
+        ;; Handle conjunctions
         (let ((rule `(rule ,(handle-conj head) --> ,@new-body)))
           (if (null exs)
               rule
@@ -99,15 +102,15 @@
   "IN is a list of conjuncts that are conjoined into OUT."
   ;; E.g.: (and* (t (and a b) t (and c d) t) ?x) ==>
   ;;        ?x = (and a b c d)
-  (if (unify! out (maybe-add 'and (conjuncts (cons 'and in)) t))
+  (if (paiprolog::unify! out (maybe-add 'and (conjuncts (cons 'and in)) t))
       (funcall cont)))
 
 (defun conjuncts (exp)
   "Get all the conjuncts from an expression."
-  (deref exp)
+  (paiprolog::deref exp)
   (cond ((eq exp t) nil)
         ((atom exp) (list exp))
-        ((eq (deref (first exp)) 'nil) nil)
+        ((eq (paiprolog::deref (first exp)) 'nil) nil)
         ((eq (first exp) 'and)
          (mappend #'conjuncts (rest exp)))
         (t (list exp))))
@@ -139,7 +142,7 @@
 (defun run-examples (&optional category)
   "Run all the example phrases stored under a category.
   With no category, run ALL the examples."
-  (prolog-compile-symbols)
+  (paiprolog::prolog-compile-symbols)
   (if (null category)
       (maphash #'(lambda (cat val)
                    (declare (cl:ignore val))
@@ -148,7 +151,7 @@
                *examples*)
       (dolist (example (get-examples category))
         (format t "~2&EXAMPLE: ~{~a~&~9T~a~}" example)
-        (top-level-prove (cdr example)))))
+        (paiprolog::top-level-prove (cdr example)))))
 
 (defun remove-punctuation (string)
   "Replace punctuation with spaces in string."
@@ -177,8 +180,8 @@
 (defun handle-conj (head)
   "Replace (Cat ...) with (Cat_ ...) if Cat is declared
   as a conjunctive category."
-  (if (and (listp head) (conj-category (predicate head)))
-      (cons (conj-category (predicate head)) (args head))
+  (if (and (listp head) (conj-category (paiprolog::predicate head)))
+      (cons (conj-category (paiprolog::predicate head)) (paiprolog::args head))
       head))
 
 (defun conj-category (predicate)

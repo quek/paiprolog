@@ -7,7 +7,6 @@
 
 (in-package "PAIPROLOG")
 
-(requires "prolog")
 
 (defconstant unbound (if (boundp 'unbound)
 			 (symbol-value 'unbound)

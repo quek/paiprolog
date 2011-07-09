@@ -5,7 +5,7 @@
 ;;; File auxfns.lisp: Auxiliary functions used by all other programs
 ;;; Load this file before running any other programs.
 
-(in-package "PAIPROLOG")
+(in-package :paiprolog.auxfns)
 
 ;;;; Implementation-Specific Details
 
@@ -34,12 +34,13 @@
 ;;; A more sophisticated REQUIRES would only load it if it has not yet
 ;;; been loaded, and would search in different directories if needed.
 
+#|
 (defun requires (&rest files)
   "The arguments are files that are required to run an application."
   (declare (cl:ignore files))
   #+nil
   (mapc #'load-paip-file files))
-
+|#
 #|
 (defvar *paip-files*
   `("auxfns" "tutor" "examples" 

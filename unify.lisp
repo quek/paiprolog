@@ -6,8 +6,6 @@
 
 (in-package "PAIPROLOG")
 
-(requires "patmatch")
-
 (defparameter *occurs-check* t "Should we do the occurs check?")
 
 (defun unify (x y &optional (bindings no-bindings))

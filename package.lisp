@@ -1,6 +1,73 @@
-(defpackage #:paiprolog
-  (:use #:cl )
-  (:shadow #:ignore #:symbol #:debug)
+(defpackage :paiprolog.auxfns
+  (:use :cl)
+  (:shadow #:symbol #:debug)
+  (:export #:once-only
+           #:side-effect-free?
+           #:funcall-if
+           #:read-time-case
+           #:rest2
+           #:find-anywhere
+           #:starts-with
+           #:find-all-if
+           #:find-all
+           #:partition-if
+           #:maybe-add
+           #:seq-ref
+           #:maybe-set-fill-pointer
+           #:symbol
+           #:new-symbol
+           #:last1
+           #:mappend
+           #:mklist
+           #:flatten
+           #:random-elt
+           #:member-equal
+           #:compose
+           #:dbg
+           #:debug
+           #:undebug
+           #:dbg-indent
+           #:fail
+           #:no-bindings
+           #:pat-match
+           #:match-variable
+           #:make-binding
+           #:binding-var
+           #:binding-val
+           #:get-binding
+           #:lookup
+           #:extend-bindings
+           #:variable-p
+           #:defun-memo
+           #:memo
+           #:memoize
+           #:clear-memoize
+           #:delay
+           #:force
+           #:defresource
+           #:with-resource
+           #:queue-contents
+           #:make-queue
+           #:enqueue
+           #:dequeue
+           #:front
+           #:empty-queue-p
+           #:queue-nconc
+           #:sort*
+           #:reuse-cons
+           #:length=1
+           #:rest3
+           #:unique-find-if-anywhere
+           #:find-if-anywhere
+           #:define-enumerated-type
+           #:not-null
+           #:first-or-nil
+           #:first-or-self))
+
+(defpackage :paiprolog
+  (:use :cl :paiprolog.auxfns)
+  (:shadow #:ignore)
+  (:shadowing-import-from :paiprolog.auxfns #:symbol #:debug)
   (:export #:?-
            #:<-
            #:<--

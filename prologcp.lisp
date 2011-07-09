@@ -10,7 +10,6 @@
 
 (in-package "PAIPROLOG")
 
-(requires "prologc")
 
 (defun fail/0 (cont)
   "7.8.1"

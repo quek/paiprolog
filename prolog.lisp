@@ -6,8 +6,6 @@
 
 (in-package "PAIPROLOG")
 
-(requires "unify") ; does not require "prolog1"
-
 ;;;; does not include destructive unification (11.6); see prologc.lisp
 
 ;; clauses are represented as (head . body) cons cells
