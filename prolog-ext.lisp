@@ -71,17 +71,21 @@ and add a clause to the data base."
                        ,,@(prolog-translate-goals goals))))
        (run-prolog 'top-level-query/0 #'ignore))))
 
-(defmacro prolog (&rest goals)
-  "Run Prolog in the surrounding Lisp environment
-which is accessed from lisp functor.
-
+#|
 (let ((x 100) y)
   (prolog (lisp ?a x)
           (= ?a ?b)
           (lisp (setf y (+ ?b ?b x 1))))
   y)
 ;;=> 301
+|#
+(defmacro prolog (&rest goals)
+  "Run Prolog in the surrounding Lisp environment
+which is accessed from lisp functor.
 "
+  (prolog-compile-symbols)
+  (setf (fill-pointer *trail*) 0)
+  (setf *var-counter* 0)
   (let ((goals (replace-?-vars goals))
         (*predicate* (gensym "anonymous-top-lavel-query")))
     `(block prolog
