@@ -62,6 +62,15 @@ and add a clause to the data base."
 ;;=> NIL
 
 
+#+(or)
+(defmacro prolog (&rest goals)
+  (let ((goals (replace-?-vars goals)))
+    `(block prolog
+       (clear-predicate 'top-level-query)
+       (add-clause (print `((top-level-query)
+                       ,,@(prolog-translate-goals goals))))
+       (run-prolog 'top-level-query/0 #'ignore))))
+
 (defmacro prolog (&rest goals)
   "Run Prolog in the surrounding Lisp environment
 which is accessed from lisp functor.
@@ -73,12 +82,20 @@ which is accessed from lisp functor.
   y)
 ;;=> 301
 "
-  (let ((goals (replace-?-vars goals)))
+  (let ((goals (replace-?-vars goals))
+        (*predicate* (gensym "anonymous-top-lavel-query")))
     `(block prolog
-       (clear-predicate 'top-level-query)
-       (add-clause `((top-level-query)
-                     ,,@(prolog-translate-goals goals)))
-       (run-prolog 'top-level-query/0 #'ignore))))
+       (funcall
+        (let ((*predicate* ',*predicate*)) ;***
+          (compile
+           nil
+           `(lambda (cont)
+              (block ,*predicate*
+                .,(maybe-add-undo-bindings
+                   (mapcar #'(lambda (clause)
+                               (compile-clause () clause 'cont))
+                           `((nil ,,@(prolog-translate-goals goals)))))))))
+        #'ignore))))
 
 (defmacro prolog-collect ((&rest vars) &body body)
   "collect all bindings of vars"
