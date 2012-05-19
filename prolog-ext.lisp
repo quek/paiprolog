@@ -83,12 +83,12 @@ and add a clause to the data base."
   "Run Prolog in the surrounding Lisp environment
 which is accessed from lisp functor.
 "
-  (prolog-compile-symbols)
-  (setf (fill-pointer *trail*) 0)
-  (setf *var-counter* 0)
   (let ((goals (replace-?-vars goals))
         (*predicate* (gensym "anonymous-top-lavel-query")))
     `(block prolog
+       (prolog-compile-symbols)
+       (setf (fill-pointer *trail*) 0)
+       (setf *var-counter* 0)
        (funcall
         (let ((*predicate* ',*predicate*)) ;***
           (compile

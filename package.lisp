@@ -140,6 +140,9 @@
            #:sub-atom
            #:atom-chars
            #:atom-codes
+           #:atom-characters
+           #:string-atom
+           #:string-list
            #:char-code
            #:number-chars
            #:number-codes

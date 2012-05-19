@@ -272,8 +272,14 @@
   "8.6.1"
   ;; Example: (is ?x (+ 3 (* ?y (+ ?z 4))))
   ;; Or even: (is (?x ?y ?x) (cons (first ?z) ?l))
-  (when (and (not (find-if-anywhere #'unbound-var-p exp))
-             (unify! var (eval (deref-exp exp))))
+  (when ;; (and (not (find-if-anywhere #'unbound-var-p exp))
+        ;;      (unify! var (eval (deref-exp exp))))
+      (or (and (not (find-if-anywhere #'unbound-var-p exp))
+               (unify! var (eval (deref-exp exp))))
+          (let ((var exp)
+                (exp var))
+           (and (not (find-if-anywhere #'unbound-var-p exp))
+                (unify! var (eval (deref-exp exp))))))
     (funcall cont)))
 
 ;;; 8.7 arithmetic comparison
