@@ -12,7 +12,12 @@
 			 (symbol-value 'unbound)
 			 "Unbound"))
 
-(defstruct var name (binding unbound))
+(defvar *var-counter* 0)
+
+(defstruct (var (:constructor ? ())
+                (:print-function print-var))
+  (name (incf *var-counter*))
+  (binding unbound))
 
 (defun bound-p (var) (not (eq (var-binding var) unbound)))
 
@@ -59,13 +64,6 @@
   "Undo all bindings back to a given point in the trail."
   (loop until (= (fill-pointer *trail*) old-trail)
      do (setf (var-binding (vector-pop *trail*)) unbound)))
-
-(defvar *var-counter* 0)
-
-(defstruct (var (:constructor ? ())
-                (:print-function print-var))
-  (name (incf *var-counter*))
-  (binding unbound))
 
 (defun prolog-compile (symbol &optional
                        (clauses (get-clauses symbol)))
