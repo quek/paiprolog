@@ -530,13 +530,13 @@
 
 (defun get-char/1 (?char cont)
   "8.12.1"
-  (when (unify! (deref ?char) (intern (read-char *standard-input*)))
+  (when (unify! (deref ?char) (intern (string (read-char *standard-input*))))
     (funcall cont)))
 
 (defun get-char/2 (?stream-or-alias ?char cont)
   "8.12.2"
   (with-stream (s (deref ?stream-or-alias))
-    (when (unify! (deref ?char) (intern (read-char ?stream-or-alias)))
+    (when (unify! (deref ?char) (intern (string (read-char ?stream-or-alias))))
       (funcall cont))))
 
 (defun put-char/1 (?char cont)
