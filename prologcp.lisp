@@ -406,7 +406,7 @@
   ;;     (setof ?x (p ?x) ?l) ==> ?l = (1 2 3)
   (let ((answers nil))
     (call/1 goal #'(lambda ()
-                     (push (deref-copy exp) answers)))
+                     (push (deref-exp exp) answers)))
     (if (and (not (null answers))
              (unify! result (delete-duplicates
                               answers
