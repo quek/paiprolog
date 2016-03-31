@@ -695,7 +695,7 @@
   "for Common Lisp"
   (when (if (unbound-var-p (deref ?atom))
             (unify! ?atom
-                    (intern (coerce (deref ?characters) 'string)))
+                    (intern (coerce (deref-exp ?characters) 'string)))
             (unify! (loop for i across (string ?atom)
                           collect i)
                     (deref ?characters)))
