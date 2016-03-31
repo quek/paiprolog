@@ -683,7 +683,7 @@
   "8.16.5"
   (when (if (unbound-var-p (deref ?atom))
             (unify! ?atom
-                    (intern (coerce (loop for i in (deref ?codes)
+                    (intern (coerce (loop for i in (deref-exp ?codes)
                                           collect (code-char i))
                                     'string)))
             (unify! (loop for i across (string ?atom)
