@@ -710,7 +710,7 @@
 
 (defun string-list/2 (?string ?list cont)
   (when (if (unbound-var-p (deref ?string))
-            (unify! ?string (coerce (deref ?list) 'string))
+            (unify! ?string (coerce (deref-exp ?list) 'string))
             (unify! (coerce ?string 'list) (deref ?list)))
     (funcall cont)))
 
