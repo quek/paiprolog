@@ -674,7 +674,7 @@
 (defun atom-chars/2 (?atom ?list cont)
   "8.16.4"
   (if (unbound-var-p (deref ?atom))
-      (when (unify! ?atom (implode (deref ?list)))
+      (when (unify! ?atom (implode (deref-exp ?list)))
         (funcall cont))
       (when (unify! (explode ?atom) (deref ?list))
         (funcall cont))))
