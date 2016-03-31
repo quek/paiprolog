@@ -735,7 +735,7 @@
   "8.16.8"
   (if (unbound-var-p (deref ?number))
       (when (unify! ?number
-                    (read-from-string (map 'string 'code-char (deref ?list))))
+                    (read-from-string (map 'string 'code-char (deref-exp ?list))))
         (funcall cont))
       (when (unify! (map 'list 'char-code (princ-to-string ?number))
                     (deref ?list))
