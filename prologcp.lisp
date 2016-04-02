@@ -406,7 +406,7 @@
   ;;     (setof ?x (p ?x) ?l) ==> ?l = (1 2 3)
   (let ((answers nil))
     (call/1 goal #'(lambda ()
-                     (push (deref-copy exp) answers)))
+                     (push (deref-exp exp) answers)))
     (if (and (not (null answers))
              (unify! result (delete-duplicates
                               answers
@@ -674,7 +674,7 @@
 (defun atom-chars/2 (?atom ?list cont)
   "8.16.4"
   (if (unbound-var-p (deref ?atom))
-      (when (unify! ?atom (implode (deref ?list)))
+      (when (unify! ?atom (implode (deref-exp ?list)))
         (funcall cont))
       (when (unify! (explode ?atom) (deref ?list))
         (funcall cont))))
@@ -683,7 +683,7 @@
   "8.16.5"
   (when (if (unbound-var-p (deref ?atom))
             (unify! ?atom
-                    (intern (coerce (loop for i in (deref ?codes)
+                    (intern (coerce (loop for i in (deref-exp ?codes)
                                           collect (code-char i))
                                     'string)))
             (unify! (loop for i across (string ?atom)
@@ -695,7 +695,7 @@
   "for Common Lisp"
   (when (if (unbound-var-p (deref ?atom))
             (unify! ?atom
-                    (intern (coerce (deref ?characters) 'string)))
+                    (intern (coerce (deref-exp ?characters) 'string)))
             (unify! (loop for i across (string ?atom)
                           collect i)
                     (deref ?characters)))
@@ -710,7 +710,7 @@
 
 (defun string-list/2 (?string ?list cont)
   (when (if (unbound-var-p (deref ?string))
-            (unify! ?string (coerce (deref ?list) 'string))
+            (unify! ?string (coerce (deref-exp ?list) 'string))
             (unify! (coerce ?string 'list) (deref ?list)))
     (funcall cont)))
 
@@ -726,7 +726,7 @@
   "8.16.7"
   (if (unbound-var-p (deref ?number))
       (when (unify! ?number
-                    (read-from-string (map 'string 'character (deref ?list))))
+                    (read-from-string (map 'string 'character (deref-exp ?list))))
         (funcall cont))
       (when (unify! (explode (intern (princ-to-string ?number))) (deref ?list))
         (funcall cont))))
@@ -735,7 +735,7 @@
   "8.16.8"
   (if (unbound-var-p (deref ?number))
       (when (unify! ?number
-                    (read-from-string (map 'string 'code-char (deref ?list))))
+                    (read-from-string (map 'string 'code-char (deref-exp ?list))))
         (funcall cont))
       (when (unify! (map 'list 'char-code (princ-to-string ?number))
                     (deref ?list))
