@@ -8,9 +8,7 @@
 (in-package "PAIPROLOG")
 
 
-(defconstant unbound (if (boundp 'unbound)
-			 (symbol-value 'unbound)
-			 "Unbound"))
+(defconstant unbound 'unbound)
 
 (defvar *var-counter* 0)
 
