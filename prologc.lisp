@@ -7,10 +7,15 @@
 
 (in-package "PAIPROLOG")
 
-
+#-ABCL
 (defconstant unbound (if (boundp 'unbound)
 			 (symbol-value 'unbound)
 			 "Unbound"))
+
+#+ABCL
+(defvar unbound (if (boundp 'unbound)
+                    (symbol-value 'unbound)
+                    "Unbound"))
 
 (defvar *var-counter* 0)
 
