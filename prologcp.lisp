@@ -215,7 +215,7 @@
 	    (term-precedes ?x ?y))
     (funcall cont)))
 
-(defun @>2/2 (?x ?y cont)
+(defun @>/2 (?x ?y cont)
   (when (term-precedes ?y ?x)
     (funcall cont)))
 
