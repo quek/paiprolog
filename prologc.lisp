@@ -302,12 +302,18 @@
   "Transform away the head, and compile the resulting body."
   (bind-unbound-vars       
     parms                  
+    ;; fix broken compilation of (setof ?x (or clause clause ..) ?answer)
+    (if (member (car clause) '(if or and))
+	(compile-body
+	 (list clause)
+	 cont
+	 (mapcar #'self-cons parms))
     (compile-body
       (nconc
         (mapcar #'make-= parms (args (clause-head clause)))
         (clause-body clause))
       cont
-      (mapcar #'self-cons parms))))                    ;***
+      (mapcar #'self-cons parms)))))                    ;***
 
 (defvar *uncompiled* nil 
   "Prolog symbols that have not been compiled.")
